@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using Microsoft.EntityFrameworkCore;
 using EventsAPI.Context;
+using EventsAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,5 +43,7 @@ app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 //app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 
 app.MapControllers();
+
+ServiceExtensions.RunDBMigration(builder.Services);
 
 app.Run();
