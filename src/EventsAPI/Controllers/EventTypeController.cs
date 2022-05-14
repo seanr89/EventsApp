@@ -1,6 +1,7 @@
 using EventsAPI.Context;
 using EventsAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsAPI.Controllers;
 
@@ -19,15 +20,15 @@ public class EventTypeController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        return Ok("This Works");
+        //return Ok("This Works");
+        return Ok(await _context.EventTypes.ToListAsync());
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] EventType type)
     {
-        throw new NotImplementedException();
         var res = await _context.EventTypes.AddAsync(type);
         return Ok(res);
     }

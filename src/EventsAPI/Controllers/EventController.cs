@@ -1,5 +1,7 @@
+using EventsAPI.Context;
 using EventsAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsAPI.Controllers;
 
@@ -8,16 +10,19 @@ namespace EventsAPI.Controllers;
 public class EventController : ControllerBase
 {
     private readonly ILogger<EventController> _logger;
+    private readonly ApplicationContext _context;
 
-    public EventController(ILogger<EventController> logger)
+    public EventController(ILogger<EventController> logger,
+        ApplicationContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        return Ok("This Works");
+        return Ok(await _context.Events.ToListAsync());
     }
 
     [HttpPost]
