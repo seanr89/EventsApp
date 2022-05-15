@@ -19,6 +19,12 @@ public class EventController : ControllerBase
         _context = context;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [ProducesResponseType(typeof(IEnumerable<Event>),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet]
     public async Task<IActionResult> Get()
     {

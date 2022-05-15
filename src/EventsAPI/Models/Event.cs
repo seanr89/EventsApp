@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EventsAPI.Models;
 
+/// <summary>
+/// Basic single event model
+/// </summary>
 public class Event
 {
     [Key]

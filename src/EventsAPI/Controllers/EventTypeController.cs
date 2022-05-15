@@ -19,13 +19,23 @@ public class EventTypeController : ControllerBase
         _context = context;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [ProducesResponseType(typeof(IEnumerable<EventType>),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        //return Ok("This Works");
         return Ok(await _context.EventTypes.ToListAsync());
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] EventType type)
     {
