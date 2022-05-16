@@ -25,16 +25,17 @@ builder.Services.AddHealthChecks();//.AddNpgSql(connectionString);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
+//}
+
+if(!app.Environment.IsDevelopment()){
+    //app.UseHttpsRedirection();
+    //app.UseAuthorization();
 }
-
 //app.MapGet("/", () => "Hello World!");
-//app.UseHttpsRedirection();
-//app.UseAuthorization();
-
 app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 {
     Predicate = _ => true,

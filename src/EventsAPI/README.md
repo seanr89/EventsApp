@@ -34,10 +34,12 @@ run `docker build -t docnetpost .`
 
 run `docker-compose up -d`
 
+for scaling use: `docker-compose up --scale web=4 --build`
+
 # Postgre Migrations
 
 run cmd
 
 ```
-
+dotnet ef migrations add <name>
 ```
