@@ -14,7 +14,7 @@ services:
         # ports:
         #     - '8080:80'
         ports:
-            - "3800:3500"
+            - "3500"
         networks:
             - events-dev
 
@@ -40,6 +40,8 @@ services:
             context: ../../nginx
         ports:
         - "3000:80"
+        networks:
+            - events-dev
 
 volumes:
     postgres:
