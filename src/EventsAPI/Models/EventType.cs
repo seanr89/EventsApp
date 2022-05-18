@@ -8,9 +8,9 @@ namespace EventsAPI.Models
     public class EventType
     {
         [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool Active { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public bool Active { get; private set; }
 
         public EventType(string name, bool active)
         {

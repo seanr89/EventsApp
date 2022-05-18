@@ -14,8 +14,13 @@ public class Event
     public bool Private { get; set; }
     public EventType Type { get; set; }
 
-    // public Event()
-    // {
+    public Event()
+    {
         
-    // }
+    }
+
+    public Event(string name)
+    {
+        Name = name;
+    }
 }

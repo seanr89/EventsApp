@@ -35,6 +35,7 @@ if(!app.Environment.IsDevelopment()){
     //app.UseHttpsRedirection();
     //app.UseAuthorization();
 }
+
 //app.MapGet("/", () => "Hello World!");
 app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 {
@@ -45,6 +46,6 @@ app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 
 app.MapControllers();
 
-//ServiceExtensions.RunDBMigration(builder.Services);
+ServiceExtensions.RunDBMigration(builder.Services);
 
 app.Run();
