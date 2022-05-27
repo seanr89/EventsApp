@@ -24,17 +24,32 @@ public class EventTypeController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [ProducesResponseType(typeof(IEnumerable<EventType>),StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        return Ok(await _context.EventTypes.ToListAsync());
+        var rec = await _context.EventTypes.ToListAsync();
+        if(rec != null)
+            return Ok(rec);
+        
+        return BadRequest();
     }
 
+    /// <summary>
+    /// Support the querying of a single EventType
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [ProducesResponseType(typeof(EventType),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(int id)
     {
-        return Ok(await _context.EventTypes.ToListAsync());
+        var rec = await _context.EventTypes.FirstOrDefaultAsync(e => e.Id == id);
+        if(rec != null)
+            return Ok(rec);
+        
+        return BadRequest();
     }
 
     /// <summary>
