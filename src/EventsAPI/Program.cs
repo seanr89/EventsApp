@@ -1,6 +1,9 @@
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using EventsAPI.Context;
 using EventsAPI.Extensions;
 
@@ -18,7 +21,8 @@ Console.WriteLine(connectionString);
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddHealthChecks();//.AddNpgSql(connectionString);
+builder.Services.AddHealthChecks().AddNpgSql(connectionString);
+builder.Services.AddHealthChecksUI().AddInMemoryStorage();
 
 
 var app = builder.Build();
