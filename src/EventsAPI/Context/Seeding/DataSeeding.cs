@@ -21,6 +21,11 @@ public static class DataSeeding
         }
     }
 
+    /// <summary>
+    /// Simple/Basic event types included!
+    /// </summary>
+    /// <param name="db"></param>
+    /// <returns></returns>
     static async Task SeedEventTypes(this ApplicationContext db)
     {
         if(db.EventTypes.Any())

@@ -1,9 +1,6 @@
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using EventsAPI.Context;
 using EventsAPI.Extensions;
 
@@ -22,7 +19,11 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddHealthChecks().AddNpgSql(connectionString);
-builder.Services.AddHealthChecksUI().AddInMemoryStorage();
+builder.Services.AddHealthChecksUI(setup => 
+    setup.DisableDatabaseMigrations()
+    // Set the maximum history entries by endpoint that will be served by the UI api middleware
+    .MaximumHistoryEntriesPerEndpoint(50))
+    .AddInMemoryStorage();
 
 
 var app = builder.Build();
@@ -45,7 +46,7 @@ app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-//app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 
 app.MapControllers();
 
