@@ -24,23 +24,20 @@ builder.Services.AddHealthChecksUI(setup =>
     // Set the maximum history entries by endpoint that will be served by the UI api middleware
     .MaximumHistoryEntriesPerEndpoint(50))
     .AddInMemoryStorage();
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 
 if(!app.Environment.IsDevelopment()){
-    //app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
     //app.UseAuthorization();
 }
 
-//app.MapGet("/", () => "Hello World!");
 app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 {
     Predicate = _ => true,

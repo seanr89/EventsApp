@@ -33,8 +33,11 @@ public static class DataSeeding
         
         List<EventType> types = new List<EventType>();
         
-        db.EventTypes.Add(new EventType("Default", true));
-        db.EventTypes.Add(new EventType("Indoor Football", true));
+        db.EventTypes.Add(new EventType("N/A", true));
+        db.EventTypes.Add(new EventType("Sport", true));
+        db.EventTypes.Add(new EventType("Music", true));
+        db.EventTypes.Add(new EventType("Technology", true));
+        db.EventTypes.Add(new EventType("Misc", true));
 
         await db.SaveChangesAsync();
     }

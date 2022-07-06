@@ -41,9 +41,4 @@ public class Event
     {
         
     }
-
-    // public Event(string name)
-    // {
-    //     Name = name;
-    // }
 }
