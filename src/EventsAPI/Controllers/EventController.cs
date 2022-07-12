@@ -1,4 +1,6 @@
+using AutoMapper;
 using EventsAPI.Context;
+using EventsAPI.DTOs;
 using EventsAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +13,14 @@ public class EventController : ControllerBase
 {
     private readonly ILogger<EventController> _logger;
     private readonly ApplicationContext _context;
+    private readonly IMapper _mapper;
 
     public EventController(ILogger<EventController> logger,
-        ApplicationContext context)
+        ApplicationContext context, IMapper mapper)
     {
-        _logger = logger;
-        _context = context;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     /// <summary>
@@ -28,6 +32,7 @@ public class EventController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get()
     {
+        _logger.LogInformation("Events:Get");
         var rec = await _context.Events.ToListAsync();
         if(rec != null)
             return Ok(rec);
@@ -45,6 +50,7 @@ public class EventController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
+        _logger.LogInformation("Events:GetById");
         var rec = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
 
         if(rec != null)
@@ -56,11 +62,13 @@ public class EventController : ControllerBase
     /// <summary>
     /// Validate and Save a new Event to DB
     /// </summary>
-    /// <param name="type"></param>
+    /// <param name="event"></param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody] Event type)
+    public IActionResult Post([FromBody] CreateEventDTO createEvent)
     {
+        _logger.LogInformation("Events:Post");
+        var convertedModel =  _mapper.Map<Event>(createEvent);
         throw new NotImplementedException();
     }
 }

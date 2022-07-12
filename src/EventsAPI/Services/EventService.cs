@@ -5,12 +5,15 @@ using EventsAPI.Services.Interfaces;
 
 namespace EventsAPI.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class EventService : IEventService
 {
-    public EventService()
-    {
+    // public EventService()
+    // {
         
-    }
+    // }
 
     public Task<IEnumerable<Event>> GetAllEvents()
     {
