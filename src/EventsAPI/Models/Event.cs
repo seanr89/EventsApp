@@ -5,7 +5,7 @@ namespace EventsAPI.Models;
 /// <summary>
 /// Basic single event model
 /// </summary>
-public class Event
+public class Event : AuditableEntity
 {
     [Key]
     public Guid Id { get; set; }

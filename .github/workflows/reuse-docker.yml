@@ -1,0 +1,10 @@
+
+
+name: Reusable Docker Worflow
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest

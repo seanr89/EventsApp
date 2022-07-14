@@ -5,7 +5,7 @@ namespace EventsAPI.Models
     /// <summary>
     /// Long term plan to have an array or event types to control other selection items
     /// </summary>
-    public class EventType
+    public class EventType : AuditableEntity
     {
         [Key]
         public int Id { get; private set; }
