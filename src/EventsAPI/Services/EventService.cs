@@ -1,19 +1,21 @@
 
 
+using EventsAPI.Context;
 using EventsAPI.Models;
 using EventsAPI.Services.Interfaces;
 
 namespace EventsAPI.Services;
 
 /// <summary>
-/// 
+/// new plan for a dedicated service to move events db work away from controller!
 /// </summary>
 public class EventService : IEventService
 {
-    // public EventService()
-    // {
-        
-    // }
+    private readonly ApplicationContext _context;
+    public EventService(ApplicationContext context)
+    {
+        _context = context;
+    }
 
     public Task<IEnumerable<Event>> GetAllEvents()
     {

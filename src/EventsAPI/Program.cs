@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using EventsAPI.Context;
 using EventsAPI.Extensions;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using EventsAPI.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,10 @@ Console.WriteLine(connectionString);
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddHealthChecks().AddNpgSql(connectionString);
+builder.Services.AddHealthChecks()
+    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" })
+    .AddCheck<DBHealthCheck>("Db")
+    .AddNpgSql(connectionString);
 builder.Services.AddHealthChecksUI(setup => 
     setup.DisableDatabaseMigrations()
     // Set the maximum history entries by endpoint that will be served by the UI api middleware
