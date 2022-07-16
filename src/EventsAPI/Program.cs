@@ -5,8 +5,14 @@ using EventsAPI.Context;
 using EventsAPI.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using EventsAPI.HealthChecks;
+using EventsAPI.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .Build();
 
 // Add services to the container.
 builder.Services.AddAutoMapper(typeof(Program)); 
@@ -14,6 +20,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<PostgreSQLSettings>(
+                configuration.GetSection("PostgreSQL"));
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];

@@ -9,15 +9,13 @@ namespace EventsAPI.Extensions;
     public static class ServiceExtensions
     {
         /// <summary>
-        /// Setup EFCore DB and Seed any data
+        /// Setup EFCore DB and Seed any data if necessary
         /// </summary>
         /// <param name="services"></param>
         public static void RunDBMigration(IServiceCollection services)
     {
         var provider = services.BuildServiceProvider();
         var context = provider.GetRequiredService<ApplicationContext>();
-
-        //TODO: Add Postgres support
         context.Database.Migrate();
         DataSeeding.TrySeedData(context).Wait();
 
