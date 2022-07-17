@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace EventsAPI.Models;
 
 /// <summary>
-/// record to detail a single attendee for an event
+/// An idividual person attending for an event
 /// </summary>
 public record Attendee
 {

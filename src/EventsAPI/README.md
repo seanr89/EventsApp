@@ -37,7 +37,7 @@ run `docker build -t docnetpost .`
 run `docker-compose up -d`
 for scaling use: `docker-compose up --scale web=4 --build`. This will scale out 4 implementations of the web items
 
-# Postgre Migrations
+# Postgres Migrations
 
 run the following command to create a DB migration (N.B. as context etc is all here we dont need to worry too much)
 

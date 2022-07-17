@@ -3,6 +3,7 @@
 using EventsAPI.Context;
 using EventsAPI.Models;
 using EventsAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsAPI.Services;
 
@@ -17,9 +18,9 @@ public class EventService : IEventService
         _context = context;
     }
 
-    public Task<IEnumerable<Event>> GetAllEvents()
+    public async Task<IEnumerable<Event>> GetAllEvents()
     {
-        throw new NotImplementedException();
+        return await _context.Events.ToListAsync();
     }
 
     public Task<Event> GetEventById()
