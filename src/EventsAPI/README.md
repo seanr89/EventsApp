@@ -30,11 +30,13 @@ run `docker stop <container>`
 
 ## Docker Build and Push Steps
 
-run `docker build -t docnetpost .`
+run `docker build -t eventsapi .`
 
 ### Docker Compose
 
 run `docker-compose up -d`
+or `docker compose -f docker-compose.dev.yml up -d`
+postgres only `docker compose -f docker-compose.post.yml up -d`
 for scaling use: `docker-compose up --scale web=4 --build`. This will scale out 4 implementations of the web items
 
 # Postgres Migrations

@@ -65,10 +65,16 @@ public class EventController : ControllerBase
     /// <param name="event"></param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody] CreateEventDTO createEvent)
+    public async Task<IActionResult> Post([FromBody] CreateEventDTO createEvent)
     {
         _logger.LogInformation("Events:Post");
         var convertedModel =  _mapper.Map<Event>(createEvent);
-        throw new NotImplementedException();
+        await _context.Events.AddAsync(convertedModel);
+        var res = await _context.SaveChangesAsync();
+        if(res > 0)
+        {
+            return Ok("Saved");
+        }
+        return BadRequest();
     }
 }
