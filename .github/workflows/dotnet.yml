@@ -1,11 +1,12 @@
 name: .NET
 
 on:
-    push:
-        branches: [main]
-    # pull_request:
-    #     branches: [main]
     workflow_dispatch:
+    workflow_call:
+
+env:
+    DOTNET_VERSION: '6.0.x' # set this to the dot net version to use
+
 jobs:
     build:
         runs-on: ubuntu-latest

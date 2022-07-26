@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EventsAPI.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class EventTypeController : ControllerBase
 {
     private readonly ILogger<EventTypeController> _logger;
