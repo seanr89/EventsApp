@@ -35,11 +35,13 @@ builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" })
     .AddCheck<DBHealthCheck>("Db")
     .AddNpgSql(connectionString);
+    
 builder.Services.AddHealthChecksUI(setup => 
     setup.DisableDatabaseMigrations()
     // Set the maximum history entries by endpoint that will be served by the UI api middleware
     .MaximumHistoryEntriesPerEndpoint(50))
     .AddInMemoryStorage();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

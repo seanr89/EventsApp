@@ -37,8 +37,8 @@ public class Event : AuditableEntity
     /// <value></value>
     public string Creator { get; set; }
 
-    public Event()
+    public override string ToString()
     {
-        
+        return $"Event Id: {Id} for Name: {Name}";
     }
 }
