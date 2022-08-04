@@ -32,6 +32,9 @@ run `docker stop <container>`
 
 run `docker build -t eventsapi .`
 
+## Run container
+run `docker run -d -p 8080:80 --name myapi eventsapi`
+
 ### Docker Compose
 
 run `docker-compose up -d`

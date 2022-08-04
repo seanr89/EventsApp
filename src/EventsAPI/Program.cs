@@ -32,9 +32,9 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddHealthChecks()
-    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" })
-    .AddCheck<DBHealthCheck>("Db")
-    .AddNpgSql(connectionString);
+    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
+    //.AddCheck<DBHealthCheck>("Db")
+    //.AddNpgSql(connectionString);
     
 builder.Services.AddHealthChecksUI(setup => 
     setup.DisableDatabaseMigrations()
@@ -45,23 +45,26 @@ builder.Services.AddHealthChecksUI(setup =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 if(!app.Environment.IsDevelopment()){
     app.UseHttpsRedirection();
     //app.UseAuthorization();
 }
 
-app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
-{
-    Predicate = _ => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
-app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+// app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
+// {
+//     Predicate = _ => true,
+//     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+// });
+// app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 
 app.MapControllers();
 
