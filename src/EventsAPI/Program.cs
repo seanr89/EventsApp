@@ -56,6 +56,8 @@ app.UseSwaggerUI();
 
 if(!app.Environment.IsDevelopment()){
     app.UseHttpsRedirection();
+    // The following line enables Application Insights telemetry collection.
+    builder.Services.AddApplicationInsightsTelemetry();
 }
 
 app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
