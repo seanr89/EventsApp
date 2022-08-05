@@ -33,8 +33,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
-    //.AddCheck<DBHealthCheck>("Db")
-    //.AddNpgSql(connectionString);
+    // .AddCheck<DBHealthCheck>("Db")
+    // .AddNpgSql(connectionString);
     
 builder.Services.AddHealthChecksUI(setup => 
     setup.DisableDatabaseMigrations()
@@ -59,11 +59,11 @@ if(!app.Environment.IsDevelopment()){
     //app.UseAuthorization();
 }
 
-// app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
-// {
-//     Predicate = _ => true,
-//     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-// });
+app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 // app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 
 app.MapControllers();
