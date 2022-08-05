@@ -31,8 +31,8 @@ Console.WriteLine(connectionString);
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddHealthChecks()
-    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
+builder.Services.AddHealthChecks();
+    //.AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
     // .AddCheck<DBHealthCheck>("Db")
     // .AddNpgSql(connectionString);
     
@@ -56,7 +56,6 @@ app.UseSwaggerUI();
 
 if(!app.Environment.IsDevelopment()){
     app.UseHttpsRedirection();
-    //app.UseAuthorization();
 }
 
 app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
