@@ -1,6 +1,7 @@
 using EventsAPI.Context;
 using EventsAPI.Models.Settings;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace EventsAPI.Controllers;
@@ -37,6 +38,14 @@ public class HomeController : ControllerBase
     {
         _logger.LogInformation("GetConnectionSetting");
         return Ok(_postSettings.ConnectionString);
+    }
+
+    [HttpGet(Name = "DbConnectionCheck")]
+    public IActionResult DbConnectionCheck()
+    {
+        _logger.LogInformation("DbConnectionCheck");
+        string conn = _context.Database.GetDbConnection().ConnectionString;
+        return Ok(conn);
     }
 
     [HttpGet(Name = "CheckFile")]

@@ -6,6 +6,7 @@ using EventsAPI.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using EventsAPI.HealthChecks;
 using EventsAPI.Models.Settings;
+using Microsoft.Extensions.Logging.ApplicationInsights;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,6 @@ builder.Services.Configure<PostgreSQLSettings>(
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
-//Console.WriteLine(connectionString);
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
@@ -43,6 +43,23 @@ builder.Services.AddHealthChecks();
 //     .MaximumHistoryEntriesPerEndpoint(50))
 //     .AddInMemoryStorage();
 
+// The following line enables Application Insights telemetry collection.
+builder.Services.AddApplicationInsightsTelemetry();
+// builder.Host.ConfigureLogging((context, builder) =>
+//  {
+//      // Providing an instrumentation key is required if you're using the
+//      // standalone Microsoft.Extensions.Logging.ApplicationInsights package,
+//      // or when you need to capture logs during application startup, such as
+//      // in Program.cs or Startup.cs itself.
+//      builder.AddApplicationInsights(
+//          context.Configuration.GetSection("ApplicationInsights").["InstrumentationKey"]);
+    
+//      // Capture all log-level entries from Program
+//      builder.AddFilter<ApplicationInsightsLoggerProvider>(
+//          typeof(Program).FullName, LogLevel.Trace);
+    
+//  });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -57,8 +74,6 @@ app.UseSwaggerUI();
 
 if(!app.Environment.IsDevelopment()){
     app.UseHttpsRedirection();
-    // The following line enables Application Insights telemetry collection.
-    builder.Services.AddApplicationInsightsTelemetry();
 }
 
 app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
