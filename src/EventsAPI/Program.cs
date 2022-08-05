@@ -27,7 +27,8 @@ builder.Services.Configure<PostgreSQLSettings>(
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
-Console.WriteLine(connectionString);
+//Console.WriteLine(connectionString);
+
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -36,11 +37,11 @@ builder.Services.AddHealthChecks();
     // .AddCheck<DBHealthCheck>("Db")
     // .AddNpgSql(connectionString);
     
-builder.Services.AddHealthChecksUI(setup => 
-    setup.DisableDatabaseMigrations()
-    // Set the maximum history entries by endpoint that will be served by the UI api middleware
-    .MaximumHistoryEntriesPerEndpoint(50))
-    .AddInMemoryStorage();
+// builder.Services.AddHealthChecksUI(setup => 
+//     setup.DisableDatabaseMigrations()
+//     // Set the maximum history entries by endpoint that will be served by the UI api middleware
+//     .MaximumHistoryEntriesPerEndpoint(50))
+//     .AddInMemoryStorage();
 
 var app = builder.Build();
 
