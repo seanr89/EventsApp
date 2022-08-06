@@ -24,13 +24,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<PostgreSQLSettings>(
-                configuration.GetSection("PostgreSQL"));
+                builder.Configuration.GetSection("PostgreSQL"));
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
+Console.WriteLine($"Connection: {connectionString}");
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
+
 
 builder.Services.AddHealthChecks();
     //.AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
@@ -45,20 +47,6 @@ builder.Services.AddHealthChecks();
 
 // The following line enables Application Insights telemetry collection.
 builder.Services.AddApplicationInsightsTelemetry();
-// builder.Host.ConfigureLogging((context, builder) =>
-//  {
-//      // Providing an instrumentation key is required if you're using the
-//      // standalone Microsoft.Extensions.Logging.ApplicationInsights package,
-//      // or when you need to capture logs during application startup, such as
-//      // in Program.cs or Startup.cs itself.
-//      builder.AddApplicationInsights(
-//          context.Configuration.GetSection("ApplicationInsights").["InstrumentationKey"]);
-    
-//      // Capture all log-level entries from Program
-//      builder.AddFilter<ApplicationInsightsLoggerProvider>(
-//          typeof(Program).FullName, LogLevel.Trace);
-    
-//  });
 
 var app = builder.Build();
 
@@ -85,6 +73,6 @@ app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 
 app.MapControllers();
 
-ServiceExtensions.RunDBMigration(builder.Services);
+//ServiceExtensions.RunDBMigration(builder.Services);
 
 app.Run();
