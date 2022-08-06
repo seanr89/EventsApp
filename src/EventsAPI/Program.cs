@@ -73,6 +73,6 @@ app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
 
 app.MapControllers();
 
-//ServiceExtensions.RunDBMigration(builder.Services);
+ServiceExtensions.RunDBMigration(builder.Services);
 
 app.Run();
