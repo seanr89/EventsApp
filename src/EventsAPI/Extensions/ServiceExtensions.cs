@@ -18,7 +18,7 @@ public static class ServiceExtensions
             var provider = services.BuildServiceProvider();
             var context = provider.GetRequiredService<ApplicationContext>();
             context.Database.Migrate();
-            //DataSeeding.TrySeedData(context).Wait();
+            DataSeeding.TrySeedData(context).Wait();
         }
         catch(Exception e)
         {
