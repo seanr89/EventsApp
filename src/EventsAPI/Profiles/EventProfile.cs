@@ -10,5 +10,6 @@ public class EventProfile : Profile
     public EventProfile()
     {   
         CreateMap<CreateEventDTO, Event>();
+        CreateMap<Event, EventDTO>();
     }
 }

@@ -28,21 +28,20 @@ builder.Services.Configure<PostgreSQLSettings>(
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
-// Console.WriteLine($"Connection: {connectionString}");
-
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
 
 builder.Services.AddHealthChecks()
-    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
-    // .AddCheck<DBHealthCheck>("Db")
-    // .AddNpgSql(connectionString);
+    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" })
+    .AddCheck<DBHealthCheck>("Db")
+    .AddNpgSql(connectionString);
     
 builder.Services.AddHealthChecksUI(setup => 
     setup.DisableDatabaseMigrations()
+    .SetEvaluationTimeInSeconds(30)
     // Set the maximum history entries by endpoint that will be served by the UI api middleware
-    .MaximumHistoryEntriesPerEndpoint(50))
+    .MaximumHistoryEntriesPerEndpoint(25))
     .AddInMemoryStorage();
 
 // The following line enables Application Insights telemetry collection.

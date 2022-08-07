@@ -27,15 +27,15 @@ public class EventController : ControllerBase
     /// Support querying of all Events from DB
     /// </summary>
     /// <returns></returns>
-    [ProducesResponseType(typeof(IEnumerable<Event>),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<EventDTO>),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet]
     public async Task<IActionResult> Get()
     {
         _logger.LogInformation("Events:Get");
         var rec = await _context.Events.ToListAsync();
-        if(rec != null)
-            return Ok(rec);
+        if(rec.Any())
+            return Ok(_mapper.Map<IEnumerable<EventDTO>>(rec));
             
         return BadRequest();
     }
@@ -45,7 +45,7 @@ public class EventController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [ProducesResponseType(typeof(Event),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EventDTO),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
@@ -54,7 +54,7 @@ public class EventController : ControllerBase
         var rec = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
 
         if(rec != null)
-            return Ok(rec);
+            return Ok(_mapper.Map<EventDTO>(rec));
         
         return BadRequest();
     }
