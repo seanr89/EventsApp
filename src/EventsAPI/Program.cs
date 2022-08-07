@@ -28,22 +28,22 @@ builder.Services.Configure<PostgreSQLSettings>(
 
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
-Console.WriteLine($"Connection: {connectionString}");
+// Console.WriteLine($"Connection: {connectionString}");
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
 
-builder.Services.AddHealthChecks();
-    //.AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
+builder.Services.AddHealthChecks()
+    .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" });
     // .AddCheck<DBHealthCheck>("Db")
     // .AddNpgSql(connectionString);
     
-// builder.Services.AddHealthChecksUI(setup => 
-//     setup.DisableDatabaseMigrations()
-//     // Set the maximum history entries by endpoint that will be served by the UI api middleware
-//     .MaximumHistoryEntriesPerEndpoint(50))
-//     .AddInMemoryStorage();
+builder.Services.AddHealthChecksUI(setup => 
+    setup.DisableDatabaseMigrations()
+    // Set the maximum history entries by endpoint that will be served by the UI api middleware
+    .MaximumHistoryEntriesPerEndpoint(50))
+    .AddInMemoryStorage();
 
 // The following line enables Application Insights telemetry collection.
 builder.Services.AddApplicationInsightsTelemetry();
@@ -69,7 +69,7 @@ app.MapHealthChecks("/healthcheck", new HealthCheckOptions()
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-// app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
+app.MapHealthChecksUI(config => config.UIPath = "/hc-ui");
 
 app.MapControllers();
 

@@ -11,4 +11,6 @@ public interface IEventService
     Task<Event> GetEventById();
 
     Task<IEnumerable<Event>> GetEventsForDate(DateOnly date);
+
+    Task<bool> SaveEvent(Event evnt);
 }

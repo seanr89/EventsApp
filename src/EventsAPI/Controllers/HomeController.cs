@@ -12,17 +12,14 @@ public class HomeController : ControllerBase
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationContext _context;
-    private readonly PostgreSQLSettings _postSettings;
     private readonly IConfiguration _config;
 
     public HomeController(ILogger<HomeController> logger,
         ApplicationContext context,
-        IOptions<PostgreSQLSettings> postSettings,
         IConfiguration config)
     {
         _logger = logger;
         _context = context;
-        _postSettings = postSettings.Value;
         _config = config;
     }
 
@@ -33,20 +30,20 @@ public class HomeController : ControllerBase
         return Ok();
     }
 
-    [HttpGet(Name = "GetConnectionSetting")]
-    public IActionResult GetConnectionSetting()
-    {
-        _logger.LogInformation("GetConnectionSetting");
-        return Ok(_postSettings.ConnectionString);
-    }
+    // [HttpGet(Name = "GetConnectionSetting")]
+    // public IActionResult GetConnectionSetting()
+    // {
+    //     _logger.LogInformation("GetConnectionSetting");
+    //     return Ok(_postSettings.ConnectionString);
+    // }
 
-    [HttpGet(Name = "DbConnectionCheck")]
-    public IActionResult DbConnectionCheck()
-    {
-        _logger.LogInformation("DbConnectionCheck");
-        string conn = _context.Database.GetDbConnection().ConnectionString;
-        return Ok(conn);
-    }
+    // [HttpGet(Name = "DbConnectionCheck")]
+    // public IActionResult DbConnectionCheck()
+    // {
+    //     _logger.LogInformation("DbConnectionCheck");
+    //     string conn = _context.Database.GetDbConnection().ConnectionString;
+    //     return Ok(conn);
+    // }
 
     [HttpGet(Name = "CheckFile")]
     public IActionResult CheckFile()
