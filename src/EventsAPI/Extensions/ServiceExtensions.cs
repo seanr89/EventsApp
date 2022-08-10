@@ -6,21 +6,24 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventsAPI.Extensions;
 
-    public static class ServiceExtensions
+public static class ServiceExtensions
+{
+    /// <summary>
+    /// Setup EFCore DB and Seed any data if necessary
+    /// </summary>
+    /// <param name="services"></param>
+    public static void RunDBMigration(IServiceCollection services)
     {
-        /// <summary>
-        /// Setup EFCore DB and Seed any data
-        /// </summary>
-        /// <param name="services"></param>
-        public static void RunDBMigration(IServiceCollection services)
-    {
-        var provider = services.BuildServiceProvider();
-        var context = provider.GetRequiredService<ApplicationContext>();
-
-        //TODO: Add Postgres support
-        context.Database.Migrate();
-        DataSeeding.TrySeedData(context).Wait();
-
+        try{
+            var provider = services.BuildServiceProvider();
+            var context = provider.GetRequiredService<ApplicationContext>();
+            context.Database.Migrate();
+            DataSeeding.TrySeedData(context).Wait();
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine($"Exception caught: {e.Message}");
+        }
     }
 
     /// <summary>
@@ -29,16 +32,16 @@ namespace EventsAPI.Extensions;
     /// <param name="services"></param>
     /// <param name="configuration"></param>
     public static void ConfigureCors(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddCors(options =>
         {
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowAnyOrigin();
-                    });
-            });
-        }
+            options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+        });
     }
+}

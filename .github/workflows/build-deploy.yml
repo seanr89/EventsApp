@@ -1,0 +1,14 @@
+name: Dotnet Build and Docker Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  local-dotnet-build:
+    uses: ./.github/workflows/dotnet.yml
+  docker-deploy:
+    needs: local-dotnet-build
+    uses: ./.github/workflows/docker-hub.yml
+    secrets: inherit

@@ -25,3 +25,8 @@ Start the container
 Stop the container
 
 -   Run command `docker stop core-counter`
+
+## Docker Compose
+Example commands for running apps with docker compose
+- Run the command `docker compose -f docker-compose.dev.yml up -d`
+

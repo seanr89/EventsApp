@@ -1,4 +1,6 @@
+using AutoMapper;
 using EventsAPI.Context;
+using EventsAPI.DTOs;
 using EventsAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,35 +8,54 @@ using Microsoft.EntityFrameworkCore;
 namespace EventsAPI.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class EventTypeController : ControllerBase
 {
     private readonly ILogger<EventTypeController> _logger;
     private readonly ApplicationContext _context;
+    private readonly IMapper _mapper;
 
     public EventTypeController(ILogger<EventTypeController> logger,
-        ApplicationContext context)
+        ApplicationContext context, IMapper mapper)
     {
-        _logger = logger;
-        _context = context;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _mapper = mapper;
     }
 
     /// <summary>
     /// Provides a method to query all events
     /// </summary>
     /// <returns></returns>
-    [ProducesResponseType(typeof(IEnumerable<EventType>),StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(IEnumerable<EventTypeDTO>),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        return Ok(await _context.EventTypes.ToListAsync());
+        var rec = await _context.EventTypes.ToListAsync();
+        if(rec != null){
+            var mapped = _mapper.Map<List<EventTypeDTO>>(rec);
+            return Ok(mapped);
+        }
+        
+        return BadRequest();
     }
 
+    /// <summary>
+    /// Support the querying of a single EventType
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [ProducesResponseType(typeof(EventType),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(int id)
     {
-        return Ok(await _context.EventTypes.ToListAsync());
+        var rec = await _context.EventTypes.FirstOrDefaultAsync(e => e.Id == id);
+        if(rec != null)
+            return Ok(rec);
+        
+        return BadRequest();
     }
 
     /// <summary>

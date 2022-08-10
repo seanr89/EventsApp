@@ -26,19 +26,25 @@ run `docker ps`
 
 ### 4. Spin down container
 
+run `docker stop <container>`
+
 ## Docker Build and Push Steps
 
-run `docker build -t docnetpost .`
+run `docker build -t eventsapi .`
+
+## Run container
+run `docker run -d -p 8080:80 --name myapi eventsapi`
 
 ### Docker Compose
 
 run `docker-compose up -d`
+or `docker compose -f docker-compose.dev.yml up -d`
+postgres only `docker compose -f docker-compose.post.yml up -d`
+for scaling use: `docker-compose up --scale web=4 --build`. This will scale out 4 implementations of the web items
 
-for scaling use: `docker-compose up --scale web=4 --build`
+# Postgres Migrations
 
-# Postgre Migrations
-
-run cmd
+run the following command to create a DB migration (N.B. as context etc is all here we dont need to worry too much)
 
 ```
 dotnet ef migrations add <name>
