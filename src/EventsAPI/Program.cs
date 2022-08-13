@@ -47,6 +47,9 @@ builder.Services.AddHealthChecksUI(setup =>
 // The following line enables Application Insights telemetry collection.
 builder.Services.AddApplicationInsightsTelemetry();
 
+//Service DI work
+builder.Services.AddApplication();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

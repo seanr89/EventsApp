@@ -47,5 +47,5 @@ for scaling use: `docker-compose up --scale web=4 --build`. This will scale out 
 run the following command to create a DB migration (N.B. as context etc is all here we dont need to worry too much)
 
 ```
-dotnet ef migrations add <name>
+dotnet ef migrations add <name> --context ApplicationContext
 ```

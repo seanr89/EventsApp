@@ -10,5 +10,6 @@ public class AttendeeProfile : Profile
     public AttendeeProfile()
     {   
         CreateMap<CreateAttendeeDTO, Attendee>();
+        CreateMap<Attendee, AttendeeDTO>();
     }
 }

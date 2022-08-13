@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventsAPI.Models;
@@ -36,6 +37,11 @@ public class Event : AuditableEntity
     /// </summary>
     /// <value></value>
     public string Creator { get; set; }
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <value></value>
+    public ICollection<Attendee> Attendees { get; set; }
 
     public override string ToString()
     {

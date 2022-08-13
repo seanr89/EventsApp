@@ -26,9 +26,9 @@ public class EventService : IEventService
         return await _context.Events.ToListAsync();
     }
 
-    public Task<Event> GetEventById()
+    public async Task<Event> GetEventById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public Task<IEnumerable<Event>> GetEventsForDate(DateOnly date)

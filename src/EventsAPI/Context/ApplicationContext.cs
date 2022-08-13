@@ -37,4 +37,11 @@ public class ApplicationContext : DbContext
 
         return base.SaveChangesAsync(cancellationToken);
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Event>()
+            .HasMany(c => c.Attendees)
+            .WithOne(e => e.AttendedEvent);
+    }
 }

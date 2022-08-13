@@ -9,7 +9,6 @@ public class EventTypeProfile : Profile
 {
     public EventTypeProfile()
     {   
-        // CreateMap<CreateEventDTO, Event>();
         CreateMap<EventType, EventTypeDTO>();
     }
 }

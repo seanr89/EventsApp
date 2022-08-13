@@ -1,9 +1,10 @@
 
 namespace EventsAPI.DTOs;
 
-public class CreateAttendeeDTO
+public class AttendeeDTO
 {
+    public Guid Id { get; set; }
     public string Email { get; set; }
     public string Name { get; set; }
-    public Guid EventId { get; set; }
+
 }
