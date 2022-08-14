@@ -1,4 +1,5 @@
 
+using EventsAPI.DTOs;
 using EventsAPI.Models;
 
 namespace EventsAPI.Services.Interfaces;
@@ -9,5 +10,5 @@ public interface IAttendeeService
 
     Task<Attendee> GetAttendeeById(Guid id);
 
-    Task<bool> SaveEvent(Attendee evnt);
+    Task<bool> SaveAttendee(CreateAttendeeDTO attendeeDTO);
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace EventsAPI.Models;
 
 /// <summary>
-/// Basic single event model
+/// A single event to be recorded and managed
 /// </summary>
 public class Event : AuditableEntity
 {

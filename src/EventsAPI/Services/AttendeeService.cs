@@ -1,6 +1,7 @@
 
 using AutoMapper;
 using EventsAPI.Context;
+using EventsAPI.DTOs;
 using EventsAPI.Models;
 using EventsAPI.Services.Interfaces;
 
@@ -19,17 +20,17 @@ public class AttendeeService : IAttendeeService
         _mapper = mapper;
     }
 
-    public Task<IEnumerable<Attendee>> GetAllAttendees()
+    public async Task<IEnumerable<Attendee>> GetAllAttendees()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Attendee> GetAttendeeById(Guid id)
+    public async Task<Attendee> GetAttendeeById(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> SaveEvent(Attendee evnt)
+    public async Task<bool> SaveAttendee(CreateAttendeeDTO attendeeDTO)
     {
         throw new NotImplementedException();
     }

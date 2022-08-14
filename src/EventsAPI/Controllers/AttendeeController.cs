@@ -44,6 +44,7 @@ public class AttendeeController : ControllerBase
     /// </summary>
     /// <param name="attendee"></param>
     /// <returns></returns>
+    [HttpPost(Name = "AddAttendee")]
     [ProducesResponseType(typeof(IEnumerable<EventDTO>),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Post(CreateAttendeeDTO attendee)
