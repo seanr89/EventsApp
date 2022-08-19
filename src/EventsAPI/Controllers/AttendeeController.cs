@@ -39,6 +39,19 @@ public class AttendeeController : ControllerBase
         return BadRequest();
     }
 
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(AttendeeDTO),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Get(Guid id)
+    {
+        _logger.LogInformation("Attendee:Get");
+        var rec = await _attendeeService.GetAttendeeById(id);
+        if(rec != null)
+            return Ok(_mapper.Map<AttendeeDTO>(rec));
+            
+        return BadRequest();
+    }
+
     /// <summary>
     /// Add a single attendee and assign to an event
     /// </summary>
@@ -47,8 +60,14 @@ public class AttendeeController : ControllerBase
     [HttpPost(Name = "AddAttendee")]
     [ProducesResponseType(typeof(IEnumerable<EventDTO>),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Post(CreateAttendeeDTO attendee)
+    public async Task<IActionResult> Post(CreateAttendeeDTO attendee)
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("Attendee:Post");
+        var rec = _mapper.Map<Attendee>(attendee);
+        var res = await _attendeeService.SaveAttendee(rec);
+        if(res){
+            return Ok("Saved");
+        }
+        return BadRequest();
     }
 }

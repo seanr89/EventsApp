@@ -10,5 +10,5 @@ public interface IAttendeeService
 
     Task<Attendee> GetAttendeeById(Guid id);
 
-    Task<bool> SaveAttendee(CreateAttendeeDTO attendeeDTO);
+    Task<bool> SaveAttendee(Attendee attendeeDTO);
 }

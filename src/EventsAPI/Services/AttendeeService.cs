@@ -4,6 +4,7 @@ using EventsAPI.Context;
 using EventsAPI.DTOs;
 using EventsAPI.Models;
 using EventsAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsAPI.Services;
 
@@ -22,15 +23,15 @@ public class AttendeeService : IAttendeeService
 
     public async Task<IEnumerable<Attendee>> GetAllAttendees()
     {
-        throw new NotImplementedException();
+        return await _context.Attendees.ToListAsync();
     }
 
     public async Task<Attendee> GetAttendeeById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Attendees.FirstOrDefaultAsync(a => a.Id == id);
     }
 
-    public async Task<bool> SaveAttendee(CreateAttendeeDTO attendeeDTO)
+    public async Task<bool> SaveAttendee(Attendee attendeeDTO)
     {
         throw new NotImplementedException();
     }
