@@ -9,15 +9,15 @@ namespace EventsAPI.Context.Seeding;
 
 public static class DataSeeding
 {
-
     public async static Task TrySeedData(this ApplicationContext db)
     {
         try
         {
             await SeedEventTypes(db);
+            await SeedEvents(db);
         }
         catch {
-            Console.WriteLine("There is an issue!");
+            Console.WriteLine("Exception Caught during data seeding");
         }
     }
 
@@ -31,7 +31,7 @@ public static class DataSeeding
         if(db.EventTypes.Any())
             return;
         
-        List<EventType> types = new List<EventType>();
+        //List<EventType> types = new List<EventType>();
         
         db.EventTypes.Add(new EventType("N/A", true));
         db.EventTypes.Add(new EventType("Sport", true));
@@ -39,6 +39,20 @@ public static class DataSeeding
         db.EventTypes.Add(new EventType("Technology", true));
         db.EventTypes.Add(new EventType("Misc", true));
 
+        await db.SaveChangesAsync();
+    }
+
+    static async Task SeedEvents(this ApplicationContext db)
+    {
+        if(db.Events.Any())
+            return;
+
+        List<Event> evnts = new List<Event>();
+
+        evnts.Add(new Event("Test Event One", DateTime.Now, 10, "Armagh", false));
+        evnts.Add(new Event("Test Event Two", DateTime.Now, 60, "Armagh", true));
+
+        await db.Events.AddRangeAsync(evnts);
         await db.SaveChangesAsync();
     }
 }

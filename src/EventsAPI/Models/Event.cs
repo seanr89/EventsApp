@@ -43,6 +43,20 @@ public class Event : AuditableEntity
     /// <value></value>
     public ICollection<Attendee> Attendees { get; set; }
 
+    public Event()
+    {
+        
+    }
+
+    public Event(string name, DateTime date, int duration, string location, bool privateEvent)
+    {
+        this.Name = name;
+        this.Date = date;
+        this.Duration = duration;
+        this.Location = location;
+        this.Private = privateEvent;
+    }
+
     public override string ToString()
     {
         return $"Event Id: {Id} for Name: {Name}";

@@ -45,7 +45,7 @@ public class EventController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [ProducesResponseType(typeof(EventDTO),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DetailedEventDTO),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
@@ -54,7 +54,7 @@ public class EventController : ControllerBase
         var rec = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
 
         if(rec != null)
-            return Ok(_mapper.Map<EventDTO>(rec));
+            return Ok(_mapper.Map<DetailedEventDTO>(rec));
         
         return BadRequest();
     }

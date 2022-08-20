@@ -33,6 +33,17 @@ public class AttendeeService : IAttendeeService
 
     public async Task<bool> SaveAttendee(Attendee attendeeDTO)
     {
-        throw new NotImplementedException();
+        try{
+            await _context.AddAsync(attendeeDTO);
+            var res = await _context.SaveChangesAsync();
+            if(res > 0)
+                return true;
+            return false;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+
     }
 }
