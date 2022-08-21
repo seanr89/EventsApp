@@ -51,7 +51,9 @@ public class EventController : ControllerBase
     public async Task<IActionResult> GetById(Guid id)
     {
         _logger.LogInformation("Events:GetById");
-        var rec = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
+        var rec = await _context.Events
+            .Include(a => a.Attendees)
+            .FirstOrDefaultAsync(e => e.Id == id);
 
         if(rec != null)
             return Ok(_mapper.Map<DetailedEventDTO>(rec));
