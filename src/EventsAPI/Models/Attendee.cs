@@ -15,8 +15,8 @@ public record Attendee
     public Guid AttendedEventId { get; set; }
     public Event AttendedEvent { get; set; }
 
-    public Attendee()
-    {
-        AttendedEvent = new Event();
-    }
+    // public Attendee()
+    // {
+    //     AttendedEvent = new Event();
+    // }
 }

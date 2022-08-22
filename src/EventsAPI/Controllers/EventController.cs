@@ -37,7 +37,7 @@ public class EventController : ControllerBase
         if(rec.Any())
             return Ok(_mapper.Map<IEnumerable<EventDTO>>(rec));
             
-        return BadRequest();
+        return BadRequest("No Records");
     }
 
     /// <summary>

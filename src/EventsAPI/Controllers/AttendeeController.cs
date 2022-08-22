@@ -36,7 +36,7 @@ public class AttendeeController : ControllerBase
         if(rec.Any())
             return Ok(_mapper.Map<IEnumerable<AttendeeDTO>>(rec));
             
-        return BadRequest();
+        return BadRequest("No Records");
     }
 
     [HttpGet("{id}")]
