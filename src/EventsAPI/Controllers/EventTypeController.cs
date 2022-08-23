@@ -46,16 +46,18 @@ public class EventTypeController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [ProducesResponseType(typeof(EventType),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EventTypeDTO),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         var rec = await _context.EventTypes.FirstOrDefaultAsync(e => e.Id == id);
-        if(rec != null)
-            return Ok(rec);
+        if(rec != null){
+            var mapped = _mapper.Map<EventTypeDTO>(rec);
+            return Ok(mapped);
+        }
         
-        return BadRequest();
+        return BadRequest("No Record");
     }
 
     /// <summary>

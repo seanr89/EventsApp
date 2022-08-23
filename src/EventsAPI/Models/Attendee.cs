@@ -12,11 +12,15 @@ public record Attendee
     public Guid Id { get; set; }
     public string Email { get; set; }
     public string Name { get; set; }
+    /// <summary>
+    /// Unique ID of the event for AutoMapper purposes
+    /// </summary>
+    /// <value></value>
     public Guid AttendedEventId { get; set; }
     public Event AttendedEvent { get; set; }
 
-    // public Attendee()
-    // {
-    //     AttendedEvent = new Event();
-    // }
+    public override string ToString()
+    {
+        return $"Attendee Id: {Id} for Name: {Name}";
+    }
 }

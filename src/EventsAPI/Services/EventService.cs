@@ -21,15 +21,9 @@ public class EventService : IEventService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<Event>> GetAllEvents()
-    {
-        return await _context.Events.ToListAsync();
-    }
+    public async Task<IEnumerable<Event>> GetAllEvents() => await _context.Events.ToListAsync();
 
-    public async Task<Event> GetEventById(Guid id)
-    {
-        return await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
-    }
+    public async Task<Event> GetEventById(Guid id) => await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
 
     public Task<IEnumerable<Event>> GetEventsForDate(DateOnly date)
     {
@@ -41,9 +35,7 @@ public class EventService : IEventService
         var convertedModel =  _mapper.Map<Event>(evnt);
         var res = await _context.SaveChangesAsync();
         if(res > 0)
-        {
             return true;
-        }
         return false;
     }
 }

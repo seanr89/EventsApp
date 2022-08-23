@@ -58,7 +58,7 @@ public class EventController : ControllerBase
         if(rec != null)
             return Ok(_mapper.Map<DetailedEventDTO>(rec));
         
-        return BadRequest();
+        return BadRequest("No Record");
     }
 
     /// <summary>
@@ -77,6 +77,6 @@ public class EventController : ControllerBase
         {
             return Ok("Saved");
         }
-        return BadRequest();
+        return BadRequest("Not Saved");
     }
 }

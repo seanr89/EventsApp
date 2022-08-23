@@ -49,7 +49,7 @@ public class AttendeeController : ControllerBase
         if(rec != null)
             return Ok(_mapper.Map<AttendeeDTO>(rec));
             
-        return BadRequest();
+        return BadRequest("No Record");
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public class AttendeeController : ControllerBase
     /// <param name="attendee"></param>
     /// <returns></returns>
     [HttpPost(Name = "AddAttendee")]
-    [ProducesResponseType(typeof(IEnumerable<EventDTO>),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(bool),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post(CreateAttendeeDTO attendee)
     {
@@ -68,6 +68,6 @@ public class AttendeeController : ControllerBase
         if(res){
             return Ok("Saved");
         }
-        return BadRequest();
+        return BadRequest("Save Failed!");
     }
 }

@@ -15,10 +15,13 @@ public class AttendeeService : IAttendeeService
 {
     private readonly ApplicationContext _context;
     private readonly IMapper _mapper;
-    public AttendeeService(ApplicationContext context, IMapper mapper)
+    private readonly ILogger<AttendeeService> _logger;
+    public AttendeeService(ApplicationContext context, IMapper mapper,
+        ILogger<AttendeeService> logger)
     {
         _context = context;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<Attendee>> GetAllAttendees()
@@ -42,6 +45,7 @@ public class AttendeeService : IAttendeeService
         }
         catch(Exception e)
         {
+            _logger.LogError($"SaveAttendee: Exception caught: {e.Message}");
             return false;
         }
 
