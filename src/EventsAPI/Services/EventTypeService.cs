@@ -3,6 +3,7 @@ using AutoMapper;
 using EventsAPI.Context;
 using EventsAPI.Models;
 using EventsAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsAPI.Services;
 
@@ -12,20 +13,14 @@ namespace EventsAPI.Services;
 public class EventTypeService : IEventTypeService
 {
     private readonly ApplicationContext _context;
-    private readonly IMapper _mapper;
-    public EventTypeService(ApplicationContext context, IMapper mapper)
+    private readonly ILogger<EventTypeService> _logger;
+    public EventTypeService(ApplicationContext context, ILogger<EventTypeService> logger)
     {
         _context = context;
-        _mapper = mapper;
+        _logger = logger;
     }
 
-    public Task<IEnumerable<EventType>> GetAllEventTypes()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<EventType>> GetAllEventTypes() => await _context.EventTypes.ToListAsync();
 
-    public Task<EventType> GetEventTypeById(int id)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<EventType> GetEventTypeById(int id) => await _context.EventTypes.FirstOrDefaultAsync();
 }
