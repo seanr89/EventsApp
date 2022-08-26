@@ -37,7 +37,7 @@ public class EventController : ControllerBase
         if(rec.Any())
             return Ok(_mapper.Map<IEnumerable<EventDTO>>(rec));
             
-        return BadRequest();
+        return BadRequest("No Records");
     }
 
     /// <summary>
@@ -45,18 +45,20 @@ public class EventController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [ProducesResponseType(typeof(EventDTO),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DetailedEventDTO),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         _logger.LogInformation("Events:GetById");
-        var rec = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
+        var rec = await _context.Events
+            .Include(a => a.Attendees)
+            .FirstOrDefaultAsync(e => e.Id == id);
 
         if(rec != null)
-            return Ok(_mapper.Map<EventDTO>(rec));
+            return Ok(_mapper.Map<DetailedEventDTO>(rec));
         
-        return BadRequest();
+        return BadRequest("No Record");
     }
 
     /// <summary>
@@ -75,6 +77,6 @@ public class EventController : ControllerBase
         {
             return Ok("Saved");
         }
-        return BadRequest();
+        return BadRequest("Not Saved");
     }
 }

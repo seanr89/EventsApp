@@ -1,9 +1,10 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventsAPI.Models;
 
 /// <summary>
-/// Basic single event model
+/// A single event to be recorded and managed
 /// </summary>
 public class Event : AuditableEntity
 {
@@ -36,6 +37,25 @@ public class Event : AuditableEntity
     /// </summary>
     /// <value></value>
     public string Creator { get; set; }
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <value></value>
+    public ICollection<Attendee> Attendees { get; set; }
+
+    public Event()
+    {
+        
+    }
+
+    public Event(string name, DateTime date, int duration, string location, bool privateEvent)
+    {
+        this.Name = name;
+        this.Date = date;
+        this.Duration = duration;
+        this.Location = location;
+        this.Private = privateEvent;
+    }
 
     public override string ToString()
     {

@@ -17,5 +17,10 @@ namespace EventsAPI.Models
             Name = name;
             Active = active;
         }
+
+        public override string ToString()
+        {
+            return $"EventType Id: {Id} for Name: {Name}";
+        }
     }
 }

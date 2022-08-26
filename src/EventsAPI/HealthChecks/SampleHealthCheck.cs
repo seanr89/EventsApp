@@ -8,8 +8,6 @@ public class SampleHealthCheck : IHealthCheck
         HealthCheckContext context, CancellationToken cancellationToken = default)
     {
         var isHealthy = true;
-
-        // ...
         if (isHealthy)
         {
             return Task.FromResult(

@@ -30,33 +30,18 @@ public class HomeController : ControllerBase
         return Ok();
     }
 
-    // [HttpGet(Name = "GetConnectionSetting")]
-    // public IActionResult GetConnectionSetting()
+    // [HttpGet(Name = "CheckFile")]
+    // public IActionResult CheckFile()
     // {
-    //     _logger.LogInformation("GetConnectionSetting");
-    //     return Ok(_postSettings.ConnectionString);
+    //     _logger.LogInformation("CheckFile");
+    //     return Ok(_config["File"]);
     // }
 
-    // [HttpGet(Name = "DbConnectionCheck")]
-    // public IActionResult DbConnectionCheck()
+    // [HttpGet(Name = "DbCheck")]
+    // public IActionResult DbCheck()
     // {
-    //     _logger.LogInformation("DbConnectionCheck");
-    //     string conn = _context.Database.GetDbConnection().ConnectionString;
-    //     return Ok(conn);
+    //     _logger.LogInformation("DbCheck");
+    //     var check = _context.Database.CanConnect();
+    //     return Ok(check);
     // }
-
-    [HttpGet(Name = "CheckFile")]
-    public IActionResult CheckFile()
-    {
-        _logger.LogInformation("CheckFile");
-        return Ok(_config["File"]);
-    }
-
-    [HttpGet(Name = "DbCheck")]
-    public IActionResult DbCheck()
-    {
-        _logger.LogInformation("DbCheck");
-        var check = _context.Database.CanConnect();
-        return Ok(check);
-    }
 }

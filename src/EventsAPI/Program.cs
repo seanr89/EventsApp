@@ -19,7 +19,6 @@ IConfiguration configuration = new ConfigurationBuilder()
 // Add services to the container.
 builder.Services.AddAutoMapper(typeof(Program)); 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -34,12 +33,12 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" })
-    .AddCheck<DBHealthCheck>("Db")
+    .AddCheck<DBHealthCheck>("Database", failureStatus: HealthStatus.Degraded, tags: new[] { "db" })
     .AddNpgSql(connectionString);
     
 builder.Services.AddHealthChecksUI(setup => 
     setup.DisableDatabaseMigrations()
-    .SetEvaluationTimeInSeconds(30)
+    .SetEvaluationTimeInSeconds(45)
     // Set the maximum history entries by endpoint that will be served by the UI api middleware
     .MaximumHistoryEntriesPerEndpoint(25))
     .AddInMemoryStorage();
@@ -47,14 +46,10 @@ builder.Services.AddHealthChecksUI(setup =>
 // The following line enables Application Insights telemetry collection.
 builder.Services.AddApplicationInsightsTelemetry();
 
-var app = builder.Build();
+//Service DI work
+builder.Services.AddApplication();
 
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
+var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
