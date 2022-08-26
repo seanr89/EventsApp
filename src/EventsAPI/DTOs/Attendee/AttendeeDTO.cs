@@ -1,6 +1,9 @@
 
 namespace EventsAPI.DTOs;
 
+/// <summary>
+/// basic/simple attendee record
+/// </summary>
 public class AttendeeDTO
 {
     public Guid Id { get; set; }

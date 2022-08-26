@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EventsAPI.Services;
 
 /// <summary>
-/// Handles event db work away from controller
+/// supports event DB integration
 /// </summary>
 public class EventService : IEventService
 {
@@ -30,16 +30,13 @@ public class EventService : IEventService
 
     public async Task<bool> SaveEvent(Event evnt)
     {
-        try
-        {
-            await _context.AddAsync(evnt);
-            var res = await _context.SaveChangesAsync();
-            if(res > 0)
+        try{
+            await _context.Events.AddAsync(evnt);
+            if(await _context.SaveChangesAsync() > 0)
                 return true;
             return false;
         }
-        catch (System.Exception e)
-        {
+        catch (System.Exception e){
             _logger.LogError($"SaveEvent: Exception caught: {e.Message}");
             return false;
         }

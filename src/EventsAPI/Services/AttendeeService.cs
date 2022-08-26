@@ -24,27 +24,19 @@ public class AttendeeService : IAttendeeService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<Attendee>> GetAllAttendees()
-    {
-        return await _context.Attendees.ToListAsync();
-    }
+    public async Task<IEnumerable<Attendee>> GetAllAttendees() =>await _context.Attendees.ToListAsync();
 
-    public async Task<Attendee> GetAttendeeById(Guid id)
-    {
-        return await _context.Attendees.FirstOrDefaultAsync(a => a.Id == id);
-    }
+    public async Task<Attendee> GetAttendeeById(Guid id) => await _context.Attendees.FirstOrDefaultAsync(a => a.Id == id);
 
     public async Task<bool> SaveAttendee(Attendee attendeeDTO)
     {
         try{
-            await _context.AddAsync(attendeeDTO);
-            var res = await _context.SaveChangesAsync();
-            if(res > 0)
+            await _context.Attendees.AddAsync(attendeeDTO);
+            if(await _context.SaveChangesAsync() > 0)
                 return true;
             return false;
         }
-        catch(Exception e)
-        {
+        catch(Exception e){
             _logger.LogError($"SaveAttendee: Exception caught: {e.Message}");
             return false;
         }
