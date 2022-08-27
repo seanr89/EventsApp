@@ -10,6 +10,10 @@ public class Event : AuditableEntity
 {
     [Key]
     public Guid Id { get; set; }
+    /// <summary>
+    /// A distinct/specific name for an event
+    /// </summary>
+    /// <value></value>
     public string Name { get; set; }
     public DateTime Date { get; set; }
     /// <summary>
@@ -38,12 +42,12 @@ public class Event : AuditableEntity
     /// <value></value>
     public string Creator { get; set; }
     /// <summary>
-    /// TODO
+    /// Array/Collectiom of ppl attending
     /// </summary>
     /// <value></value>
     public ICollection<Attendee> Attendees { get; set; }
 
-    public Event()
+    private Event()
     {
         
     }

@@ -31,12 +31,11 @@ public static class DataSeeding
         if(db.EventTypes.Any())
             return;
         
-        //List<EventType> types = new List<EventType>();
-        
         db.EventTypes.Add(new EventType("N/A", true));
         db.EventTypes.Add(new EventType("Sport", true));
         db.EventTypes.Add(new EventType("Music", true));
         db.EventTypes.Add(new EventType("Technology", true));
+        db.EventTypes.Add(new EventType("Social", true));
         db.EventTypes.Add(new EventType("Misc", true));
 
         await db.SaveChangesAsync();
