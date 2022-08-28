@@ -4,6 +4,7 @@ namespace EventsAPI.Models
 {
     /// <summary>
     /// Detail the quality of both event and attendee!
+    /// UNSURE IF WILL REMAIN
     /// </summary>
     public class Level : AuditableEntity
     {

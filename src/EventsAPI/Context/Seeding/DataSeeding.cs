@@ -22,9 +22,9 @@ public static class DataSeeding
     }
 
     /// <summary>
-    /// Simple/Basic event types included!
+    /// Basic event types seed
     /// </summary>
-    /// <param name="db"></param>
+    /// <param name="db">DB connector</param>
     /// <returns></returns>
     static async Task SeedEventTypes(this ApplicationContext db)
     {
@@ -41,6 +41,11 @@ public static class DataSeeding
         await db.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// example event seed
+    /// </summary>
+    /// <param name="db">DB Connector</param>
+    /// <returns></returns>
     static async Task SeedEvents(this ApplicationContext db)
     {
         if(db.Events.Any())
@@ -48,8 +53,8 @@ public static class DataSeeding
 
         List<Event> evnts = new List<Event>();
 
-        evnts.Add(new Event("Test Event One", DateTime.Now, 10, "Armagh", false));
-        evnts.Add(new Event("Test Event Two", DateTime.Now, 60, "Armagh", true));
+        evnts.Add(new Event("Test Event One", DateTime.Now, 10, "Armagh", "URL1", false));
+        evnts.Add(new Event("Test Event Two", DateTime.Now, 60, "Armagh", "URL2", true));
 
         await db.Events.AddRangeAsync(evnts);
         await db.SaveChangesAsync();

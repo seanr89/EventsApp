@@ -30,7 +30,6 @@ var connectionString = builder.Configuration["PostgreSQL:ConnectionString"];
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(connectionString));
 
-
 builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample", failureStatus: HealthStatus.Degraded, tags: new[] { "sample" })
     .AddCheck<DBHealthCheck>("Database", failureStatus: HealthStatus.Degraded, tags: new[] { "db" })

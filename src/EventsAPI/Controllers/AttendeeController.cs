@@ -42,7 +42,7 @@ public class AttendeeController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AttendeeDTO),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Get(Guid id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         _logger.LogInformation("Attendee:Get");
         var rec = await _attendeeService.GetAttendeeById(id);

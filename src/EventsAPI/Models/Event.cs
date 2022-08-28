@@ -11,10 +11,14 @@ public class Event : AuditableEntity
     [Key]
     public Guid Id { get; set; }
     /// <summary>
-    /// A distinct/specific name for an event
+    /// A specific name for the event
     /// </summary>
     /// <value></value>
     public string Name { get; set; }
+    /// <summary>
+    /// The date of the event
+    /// </summary>
+    /// <value></value>
     public DateTime Date { get; set; }
     /// <summary>
     /// Duration of event in minutes
@@ -37,27 +41,36 @@ public class Event : AuditableEntity
     /// <value></value>
     public EventType Type { get; set; }
     /// <summary>
-    /// Name/Email of the person who created the event!
+    /// Name/Email of the event creator
     /// </summary>
     /// <value></value>
     public string Creator { get; set; }
     /// <summary>
-    /// Array/Collectiom of ppl attending
+    /// TODO:
+    /// </summary>
+    /// <value></value>
+    public string URL { get; set; }
+    /// <summary>
+    /// Array/Collection of ppl attending
     /// </summary>
     /// <value></value>
     public ICollection<Attendee> Attendees { get; set; }
 
+    /// <summary>
+    /// Hidden constructor
+    /// </summary>
     private Event()
     {
         
     }
 
-    public Event(string name, DateTime date, int duration, string location, bool privateEvent)
+    public Event(string name, DateTime date, int duration, string url ,string location, bool privateEvent)
     {
         this.Name = name;
         this.Date = date;
         this.Duration = duration;
         this.Location = location;
+        this.URL = url;
         this.Private = privateEvent;
     }
 
