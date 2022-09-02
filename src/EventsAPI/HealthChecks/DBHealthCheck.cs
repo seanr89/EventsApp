@@ -22,7 +22,6 @@ public class DBHealthCheck : IHealthCheck
 
             if (dbContext.Database.CanConnect())
             {
-                // all good
                 return Task.FromResult(
                 HealthCheckResult.Healthy("A healthy DB Connection."));
             }

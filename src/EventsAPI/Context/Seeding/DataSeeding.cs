@@ -55,6 +55,8 @@ public static class DataSeeding
 
         evnts.Add(new Event("Test Event One", DateTime.Now, 10, "Armagh", "URL1", false));
         evnts.Add(new Event("Test Event Two", DateTime.Now, 60, "Armagh", "URL2", true));
+        evnts.Add(new Event("Test Event Threee", DateTime.Now, 15, "Belfast", "URL2", false));
+        evnts.Add(new Event("Test Event Four", DateTime.Now, 30, "Antrim", "URL3", true));
 
         await db.Events.AddRangeAsync(evnts);
         await db.SaveChangesAsync();

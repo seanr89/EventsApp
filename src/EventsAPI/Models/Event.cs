@@ -64,7 +64,7 @@ public class Event : AuditableEntity
         
     }
 
-    public Event(string name, DateTime date, int duration, string url ,string location, bool privateEvent)
+    public Event(string name, DateTime date, int duration, string url, string location, bool privateEvent)
     {
         this.Name = name;
         this.Date = date;
