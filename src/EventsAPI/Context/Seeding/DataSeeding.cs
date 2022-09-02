@@ -61,4 +61,7 @@ public static class DataSeeding
         await db.Events.AddRangeAsync(evnts);
         await db.SaveChangesAsync();
     }
+
+    static async Task SeedAttendees(this ApplicationContext db)
+    {}
 }
