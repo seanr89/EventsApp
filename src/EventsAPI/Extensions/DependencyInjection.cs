@@ -13,7 +13,6 @@ public static class DependencyInjection
     /// <returns></returns>
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-
         services.AddTransient<IEventService, EventService>();
         services.AddTransient<IEventTypeService, EventTypeService>();
         services.AddTransient<IAttendeeService, AttendeeService>();

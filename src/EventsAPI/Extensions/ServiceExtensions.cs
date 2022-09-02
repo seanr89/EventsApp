@@ -1,8 +1,10 @@
 using EventsAPI.Context;
 using EventsAPI.Context.Seeding;
+using EventsAPI.Models.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace EventsAPI.Extensions;
 
@@ -17,8 +19,13 @@ public static class ServiceExtensions
         try{
             var provider = services.BuildServiceProvider();
             var context = provider.GetRequiredService<ApplicationContext>();
-            context.Database.Migrate();
-            DataSeeding.TrySeedData(context).Wait();
+            var opt = provider.GetRequiredService<IOptions<PostgreSQLSettings>>().Value;
+    
+            if(opt.Migrate)
+                context.Database.Migrate();
+            
+            if(opt.SeedData)
+                DataSeeding.TrySeedData(context).Wait();
         }
         catch(Exception e)
         {

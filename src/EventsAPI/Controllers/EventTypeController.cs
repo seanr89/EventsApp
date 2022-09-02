@@ -13,19 +13,16 @@ namespace EventsAPI.Controllers;
 public class EventTypeController : ControllerBase
 {
     private readonly ILogger<EventTypeController> _logger;
-    private readonly ApplicationContext _context;
     private readonly IMapper _mapper;
     private readonly IEventTypeService _eventTypeService;
 
     public EventTypeController(ILogger<EventTypeController> logger,
         IEventTypeService eventTypeService,
-        ApplicationContext context,
         IMapper mapper)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-        _eventTypeService = eventTypeService;
-        _mapper = mapper;
+        _eventTypeService = eventTypeService ?? throw new ArgumentNullException(nameof(eventTypeService));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     /// <summary>
@@ -37,12 +34,9 @@ public class EventTypeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var rec = await _context.EventTypes.ToListAsync();
-        if(rec != null){
-            var mapped = _mapper.Map<List<EventTypeDTO>>(rec);
-            return Ok(mapped);
-        }
-        
+        var rec = await _eventTypeService.GetAllEventTypes();
+        if(rec != null)
+            return Ok(_mapper.Map<List<EventTypeDTO>>(rec));
         return BadRequest();
     }
 
@@ -56,12 +50,9 @@ public class EventTypeController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var rec = await _context.EventTypes.FirstOrDefaultAsync(e => e.Id == id);
-        if(rec != null){
-            var mapped = _mapper.Map<EventTypeDTO>(rec);
-            return Ok(mapped);
-        }
-        
+        var rec = await _eventTypeService.GetEventTypeById(id);
+        if(rec != null) 
+            Ok(_mapper.Map<EventTypeDTO>(rec));
         return BadRequest("No Record");
     }
 

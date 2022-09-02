@@ -29,19 +29,4 @@ public class HomeController : ControllerBase
         _logger.LogInformation("Home:Get");
         return Ok();
     }
-
-    // [HttpGet(Name = "CheckFile")]
-    // public IActionResult CheckFile()
-    // {
-    //     _logger.LogInformation("CheckFile");
-    //     return Ok(_config["File"]);
-    // }
-
-    // [HttpGet(Name = "DbCheck")]
-    // public IActionResult DbCheck()
-    // {
-    //     _logger.LogInformation("DbCheck");
-    //     var check = _context.Database.CanConnect();
-    //     return Ok(check);
-    // }
 }
