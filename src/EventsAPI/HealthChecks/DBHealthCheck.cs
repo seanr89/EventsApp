@@ -4,6 +4,9 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace EventsAPI.HealthChecks;
 
+/// <summary>
+/// Basic DB connection check - Potentially Defunct
+/// </summary>
 public class DBHealthCheck : IHealthCheck
 {
     public IServiceProvider _serviceProvider;

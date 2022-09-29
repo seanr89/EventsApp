@@ -14,13 +14,9 @@ public class HomeController : ControllerBase
     private readonly ApplicationContext _context;
     private readonly IConfiguration _config;
 
-    public HomeController(ILogger<HomeController> logger,
-        ApplicationContext context,
-        IConfiguration config)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        _context = context;
-        _config = config;
     }
 
     [HttpGet]

@@ -67,12 +67,13 @@ public class EventTypeController : ControllerBase
     public async Task<IActionResult> Post([FromBody] EventType type)
     {
         if (!ModelState.IsValid){
-            return BadRequest("Invalid model object");
+            return BadRequest("Invalid model!");
         }
 
         var res = await _eventTypeService.SaveEventType(type);
         if(res)
             return Created("GetById", type);
+            
         return BadRequest("DB Insert Failed");
     }
 }

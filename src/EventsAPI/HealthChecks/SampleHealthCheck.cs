@@ -2,6 +2,9 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace EventsAPI.HealthChecks;
 
+/// <summary>
+/// Example application test health check!
+/// </summary>
 public class SampleHealthCheck : IHealthCheck
 {
     public Task<HealthCheckResult> CheckHealthAsync(

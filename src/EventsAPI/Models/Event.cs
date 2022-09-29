@@ -56,6 +56,8 @@ public class Event : AuditableEntity
     /// <value></value>
     public ICollection<Attendee> Attendees { get; set; }
 
+    #region Constructors
+
     /// <summary>
     /// Hidden constructor
     /// </summary>
@@ -64,6 +66,15 @@ public class Event : AuditableEntity
         
     }
 
+    /// <summary>
+    /// Updated constructor with requird fields
+    /// </summary>
+    /// <param name="name">distinguishing Name</param>
+    /// <param name="date">Date and Time of event</param>
+    /// <param name="duration">duration (minutes)</param>
+    /// <param name="url">url link to event location</param>
+    /// <param name="location">location info (basic address)</param>
+    /// <param name="privateEvent">private/public flag</param>
     public Event(string name, DateTime date, int duration, string url, string location, bool privateEvent)
     {
         this.Name = name;
@@ -73,6 +84,8 @@ public class Event : AuditableEntity
         this.URL = url;
         this.Private = privateEvent;
     }
+
+    #endregion
 
     public override string ToString()
     {

@@ -74,9 +74,7 @@ public class EventController : ControllerBase
         await _context.Events.AddAsync(convertedModel);
         var res = await _context.SaveChangesAsync();
         if(res > 0)
-        {
             return Ok("Saved");
-        }
         return BadRequest("Not Saved");
     }
 }
